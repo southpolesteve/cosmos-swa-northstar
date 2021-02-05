@@ -7,9 +7,6 @@ const [endpoint, key] = process.env.COSMOS_CONNECTION_STRING.split(";").map(
 
 let functionTemp = "cold";
 export default async (req, res) => {
-  if (functionTemp === "cold") {
-    functionTemp = "hot";
-  }
   const start = Date.now();
   const authHeaders = generateHeaders(
     key,
@@ -34,11 +31,12 @@ export default async (req, res) => {
     buffers.push(data);
   }
 
-  res
-    .status(200)
-    .json({
-      item: Buffer.concat(buffers).toString("utf8"),
-      executionTime: Date.now() - start,
-      functionTemp,
-    });
+  res.status(200).json({
+    item: Buffer.concat(buffers).toString("utf8"),
+    executionTime: Date.now() - start,
+    functionTemp,
+  });
+  if (functionTemp === "cold") {
+    functionTemp = "hot";
+  }
 };

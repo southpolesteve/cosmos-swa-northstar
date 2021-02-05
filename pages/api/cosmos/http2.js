@@ -9,9 +9,6 @@ const client = http2.connect(endpoint);
 let functionTemp = "cold";
 
 export default async (req, res) => {
-  if (functionTemp === "cold") {
-    functionTemp = "hot";
-  }
   const start = Date.now();
   const authHeaders = generateHeaders(
     key,
@@ -31,6 +28,9 @@ export default async (req, res) => {
   res
     .status(200)
     .json({ item: response, executionTime: Date.now() - start, functionTemp });
+  if (functionTemp === "cold") {
+    functionTemp = "hot";
+  }
 };
 
 function request(headers) {
