@@ -36,13 +36,3 @@ export default function Home() {
     </div>
   );
 }
-
-// {
-//   Object.keys(account).map(function (key) {
-//     return (
-//       <div>
-//         Key: {key}, Value: {account[key]}
-//       </div>
-//     );
-//   });
-// }
